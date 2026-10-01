@@ -23,7 +23,6 @@ class WordGuesserGame
         true
       end
     else
-      #wrong_guesses << letter unless wrong_guesses.include? letter
       if wrong_guesses.include? letter
         false
       else
@@ -43,14 +42,6 @@ class WordGuesserGame
     :play
   end
 
-  def game_won?
-    word.chars.all?{|letter| guesses.include? letter} and wrong_guesses.length < 7 
-  end
-
-  def game_lost?
-    word.chars.any?{|letter| not guesses.include? letter} and wrong_guesses.length >= 7 
-  end
-
   # You can test it by installing irb via $ gem install irb
   # and then running $ irb -I. -r app.rb
   # And then in the irb: irb(main):001:0> WordGuesserGame.get_random_word
@@ -61,4 +52,15 @@ class WordGuesserGame
     uri = URI('https://randomword.saasbook.info/RandomWord.txt')
     Net::HTTP.get(uri)
   end
+
+  private
+
+  def game_won?
+    word.chars.all?{|letter| guesses.include? letter} and wrong_guesses.length < 7 
+  end
+
+  def game_lost?
+    word.chars.any?{|letter| not guesses.include? letter} and wrong_guesses.length >= 7 
+  end
+
 end
