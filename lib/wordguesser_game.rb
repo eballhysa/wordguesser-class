@@ -15,20 +15,12 @@ class WordGuesserGame
   def guess(letter)
     letter = letter.to_s.downcase
     raise ArgumentError, "Invalid input" unless letter =~ /^[a-z]$/
-    if word.include? letter
-      if guesses.include? letter
-        false
-      else
-        guesses << letter
-        true
-      end
+    the_list = if word.include? letter  then guesses else wrong_guesses end
+    if the_list.include? letter
+      false
     else
-      if wrong_guesses.include? letter
-        false
-      else
-        wrong_guesses << letter
-        true
-      end
+      the_list << letter
+      true
     end
   end
 
